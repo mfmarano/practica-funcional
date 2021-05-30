@@ -3,6 +3,8 @@ import Data.Char
 
 {-
 
+https://docs.google.com/document/d/1VTRCo5HE5XwvVM52saO2jec8uxJXYRQZ901UG6ifkiI/edit
+
 Tierra de Bárbaros
 
 ¡Rechapos! - En la tierra de Udrogoth los reyes bárbaros formaron
@@ -136,6 +138,13 @@ uno o más eventos, por ejemplo:
   * caligrafia: El bárbaro tiene caligrafía perfecta (para el
     estándar barbárico de la época) si sus habilidades
     contienen más de 3 vocales y comienzan con mayúscula.
+
+Sabiendo esto, se pide:
+* Definir los eventos, modelar las aventuras y dar un ejemplo.
+* Definir la función sobrevivientes que tome una lista de
+  bárbaros y una aventura, y diga cuáles bárbaros la sobreviven
+  (es decir, pasan todas las pruebas)
+
 -}
 
 type Aventura = [Evento]
@@ -171,13 +180,6 @@ type Prueba = Barbaro -> Bool
 
 
 {-
-
-
-Sabiendo esto, se pide:
-* Definir los eventos, modelar las aventuras y dar un ejemplo.
-* Definir la función sobrevivientes que tome una lista de
-  bárbaros y una aventura, y diga cuáles bárbaros la sobreviven
-  (es decir, pasan todas las pruebas)
 
 Punto 4 - Dinastía
 
