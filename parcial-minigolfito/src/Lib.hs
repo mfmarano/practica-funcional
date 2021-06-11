@@ -53,3 +53,48 @@ palos :: [Palo]
 palos = [putter, madera] ++ map hierro [1..10]
 
 -- 2)
+
+golpe :: Jugador -> Palo -> Tiro
+golpe jugador palo = (palo.habilidad) jugador
+
+-- 3)
+
+type Obstaculo = Tiro -> Tiro
+type Condicion = Tiro -> Bool
+type Efecto = Tiro -> Tiro
+tiroDetenido = Tiro 0 0 0
+
+tunelConRampita :: Obstaculo
+tunelConRampita = obstaculoSuperableSi superaTunelConRampita efectoTunelConRampita
+
+superaTunelConRampita :: Condicion
+superaTunelConRampita tiro = precision tiro > 90 && alRasDelSuelo tiro
+
+alRasDelSuelo :: Condicion
+alRasDelSuelo = (== 0).altura
+
+efectoTunelConRampita :: Efecto
+efectoTunelConRampita tiro = Tiro (velocidad tiro * 2) 100 0
+
+laguna :: Int -> Obstaculo
+laguna largo = obstaculoSuperableSi superaLaguna (efectoLaguna largo)
+
+superaLaguna :: Condicion
+superaLaguna tiro = velocidad tiro > 80 && (between 1 5.altura) tiro
+
+efectoLaguna :: Int -> Efecto
+efectoLaguna largo tiro = tiro { altura = div (altura tiro) largo }
+
+hoyo :: Obstaculo
+hoyo = obstaculoSuperableSi superaHoyo efectoHoyo
+
+superaHoyo :: Condicion
+superaHoyo tiro = (between 5 20.velocidad) tiro && alRasDelSuelo tiro && ((>95).precision) tiro
+
+efectoHoyo :: Efecto
+efectoHoyo _ = tiroDetenido
+
+obstaculoSuperableSi :: Condicion -> Efecto -> Obstaculo
+obstaculoSuperableSi condicion efecto tiro
+    | condicion tiro = efecto tiro
+    | otherwise = tiroDetenido
